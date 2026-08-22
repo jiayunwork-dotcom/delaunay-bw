@@ -1,0 +1,12 @@
+.git
+.gitignore
+node_modules
+.DS_Store
+.vscode
+.idea
+*.pyc
+__pycache__
+server.log
+delaunay.log
+access.log
+error.log

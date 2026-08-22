@@ -1,0 +1,115 @@
+:root {
+  --bg: #f5f7fa;
+  --panel: #ffffff;
+  --ink: #22303f;
+  --muted: #5a6b7d;
+  --line: #d5dde6;
+  --accent: #2c5aa0;
+  --danger: #b03030;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.5 -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1 { font-size: 22px; margin: 0 0 2px; }
+.subtitle { color: var(--muted); margin: 0 0 16px; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.toolbar button {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.toolbar button:hover { filter: brightness(1.1); }
+
+.toolbar label { color: var(--muted); font-size: 13px; }
+.toolbar input { width: 90px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; }
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.columns h2 { font-size: 15px; margin: 0 0 6px; }
+
+textarea {
+  width: 100%;
+  font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px;
+  resize: vertical;
+}
+
+.hint { color: var(--muted); font-size: 12px; }
+
+.result {
+  background: #f0f4f9;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  min-height: 240px;
+  max-height: 360px;
+  overflow: auto;
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.error {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #e6b3b3;
+  background: #fdeeee;
+  color: var(--danger);
+  border-radius: 8px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+}
+
+.svg-wrap h2 { font-size: 15px; margin: 18px 0 6px; }
+
+svg {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+@media (max-width: 760px) {
+  .columns { grid-template-columns: 1fr; }
+}

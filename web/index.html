@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>delaunay-bw · Bowyer–Watson 三角剖分核算</title>
+<link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+<main>
+  <h1>delaunay-bw</h1>
+  <p class="subtitle">平面点集 Bowyer–Watson 三角剖分核算 · 外接圆空圆属性 · Voronoi 对偶</p>
+
+  <section class="panel">
+    <div class="toolbar">
+      <button id="load-example" type="button">加载示例 grid-jitter</button>
+      <button id="triangulate" type="button">计算三角剖分</button>
+      <button id="voronoi" type="button">计算 Voronoi 对偶</button>
+      <label>容差 <input id="tol" type="text" value="1e-9" size="8"></label>
+    </div>
+
+    <div class="columns">
+      <div class="col">
+        <h2>点集</h2>
+        <textarea id="points" rows="18" spellcheck="false" placeholder='[{"x":0,"y":0},{"x":1,"y":0},{"x":0,"y":1}]'></textarea>
+        <p class="hint">JSON 数组或 {"points":[...]} 均可；页面数据全部来自后端。</p>
+      </div>
+      <div class="col">
+        <h2>结果</h2>
+        <pre id="result" class="result">等待计算…</pre>
+      </div>
+    </div>
+
+    <div id="error" class="error" hidden></div>
+
+    <div class="svg-wrap">
+      <h2>三角网（数据来自 /api/triangulate）</h2>
+      <svg id="mesh" viewBox="0 0 500 380" role="img" aria-label="Delaunay 三角网"></svg>
+    </div>
+  </section>
+</main>
+<script src="/web/app.js"></script>
+</body>
+</html>
