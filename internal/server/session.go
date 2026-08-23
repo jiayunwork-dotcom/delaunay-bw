@@ -31,8 +31,9 @@ func (s *VoronoiSession) Reset() {
 	s.edges = s.edges[:0]
 }
 
-// Publish merges diagram into the session and returns the combined view.
+// Publish replaces the previous leftover diagram with this request's dual.
 func (s *VoronoiSession) Publish(d *voronoi.Diagram) *voronoi.Diagram {
+	s.Reset()
 	s.verts = append(s.verts, d.Vertices...)
 	s.edges = append(s.edges, d.Edges...)
 	return &voronoi.Diagram{
