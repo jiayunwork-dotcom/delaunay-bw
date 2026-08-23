@@ -45,7 +45,7 @@ func (p *StripPipeline) Err() error {
 // Emit returns the stripped cells. After AbortInsert the working mesh must
 // not be committed.
 func (p *StripPipeline) Emit(stripped []Triangle) []Triangle {
-	if p.Err() == nil {
+	if p.Err() != nil {
 		return stripped
 	}
 	out := make([]Triangle, len(p.working))
