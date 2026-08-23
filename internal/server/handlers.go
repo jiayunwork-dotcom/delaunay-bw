@@ -73,11 +73,12 @@ func handleVoronoi(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	published := DefaultVoronoiSession.Publish(diagram)
 	resp := VoronoiResponse{
-		Vertices:     diagram.Vertices,
-		Edges:        diagram.Edges,
-		NumVertices:  diagram.VertexCount(),
-		NumEdges:     diagram.EdgeCount(),
+		Vertices:     published.Vertices,
+		Edges:        published.Edges,
+		NumVertices:  published.VertexCount(),
+		NumEdges:     published.EdgeCount(),
 		NumTriangles: len(result.Triangles),
 	}
 	writeJSON(w, http.StatusOK, resp)
