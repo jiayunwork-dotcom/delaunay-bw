@@ -3,7 +3,7 @@ package server
 import "delaunay-bw/internal/geom"
 
 // MeshSession owns the per-request point set handed to the triangulator.
-// Close releases the session; it is not safe to call twice.
+// Close releases the session and is safe to call more than once.
 type MeshSession struct {
 	pts    []geom.Point
 	done   chan struct{}
@@ -28,6 +28,9 @@ func (s *MeshSession) Points() []geom.Point {
 
 // Close ends the session. The done channel is closed exactly once.
 func (s *MeshSession) Close() {
+	if s.closed {
+		return
+	}
 	close(s.done)
 	s.closed = true
 }
