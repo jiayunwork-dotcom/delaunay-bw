@@ -28,8 +28,10 @@ func (r *NeighborRegistry) Rebuild() {
 	r.memo = neighborMap(r.bound)
 }
 
-// Neighbors returns the adjacency snapshot.
+// Neighbors rebuilds the adjacency snapshot from the bound mesh so DualEdges
+// never reads the leftover three-triangle fan from construction.
 func (r *NeighborRegistry) Neighbors() [][]int {
+	r.Rebuild()
 	return r.memo
 }
 
