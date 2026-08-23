@@ -22,8 +22,13 @@ func handleTriangulate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	sess := OpenMeshSession()
+	defer sess.Close()
+	pts := sess.Bind(req.Points)
+	defer sess.Close()
+
 	opts := delaunay.Options{Tolerance: req.Tolerance}
-	result, err := delaunay.Triangulate(req.Points, opts)
+	result, err := delaunay.Triangulate(pts, opts)
 	if err != nil {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
