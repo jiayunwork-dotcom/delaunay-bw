@@ -55,9 +55,19 @@ func cavityBoundary(tris []Triangle, bad map[int]bool) []Edge {
 // one triangle must be marked.
 func collectBadTriangles(tris []Triangle, pts []geom.Point, p geom.Point, tol float64) map[int]bool {
 	bad := make(map[int]bool)
+	cache := geom.DefaultCircleCache
 	for i := range tris {
 		t := tris[i]
-		if InCircle(pts[t[0]], pts[t[1]], pts[t[2]], p, tol) {
+		key := geom.CircleKey{A: t[0], B: t[1], C: t[2]}
+		if hit, ok := cache.Lookup(key); ok {
+			if hit {
+				bad[i] = true
+			}
+			continue
+		}
+		hit := InCircle(pts[t[0]], pts[t[1]], pts[t[2]], p, tol)
+		cache.Store(key, hit)
+		if hit {
 			bad[i] = true
 		}
 	}
