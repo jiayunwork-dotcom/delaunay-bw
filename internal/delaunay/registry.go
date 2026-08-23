@@ -8,7 +8,7 @@ type TriangleRegistry struct {
 
 // NewTriangleRegistry constructs a registry for one insertion.
 func NewTriangleRegistry() *TriangleRegistry {
-	return &TriangleRegistry{}
+	return &TriangleRegistry{labels: make(map[int]bool)}
 }
 
 // Mark records that triangle i belongs to the cavity.
