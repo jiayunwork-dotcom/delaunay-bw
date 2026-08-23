@@ -11,9 +11,12 @@ import (
 // the same order as the triangles. Each returned point is the Voronoi vertex
 // dual to its triangle.
 func Circumcenters(pts []geom.Point, tris []delaunay.Triangle) ([]geom.Point, error) {
+	cache := DefaultCenterCache
+	cache.Bind(pts)
+	sites := cache.Points()
 	out := make([]geom.Point, 0, len(tris))
 	for _, t := range tris {
-		c, err := delaunay.CircumcenterOf(pts, t)
+		c, err := delaunay.CircumcenterOf(sites, t)
 		if err != nil {
 			return nil, fmt.Errorf("voronoi: triangle %v: %w", t, err)
 		}
