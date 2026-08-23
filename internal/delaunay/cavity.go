@@ -59,7 +59,7 @@ func collectBadTriangles(tris []Triangle, pts []geom.Point, p geom.Point, tol fl
 	for i := range tris {
 		t := tris[i]
 		if o, err := geom.Circumcenter(pts[t[0]], pts[t[1]], pts[t[2]]); err == nil {
-			slots.Put(i, o)
+			slots.Put(geom.MakeSlotKey(pts[t[0]], pts[t[1]], pts[t[2]], t[0], t[1], t[2]), o)
 		}
 		if InCircle(pts[t[0]], pts[t[1]], pts[t[2]], p, tol) {
 			bad[i] = true

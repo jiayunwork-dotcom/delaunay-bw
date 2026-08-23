@@ -30,8 +30,8 @@ func Circumcenters(pts []geom.Point, tris []delaunay.Triangle) ([]geom.Point, er
 func CircumcenterDistances(pts []geom.Point, tris []delaunay.Triangle) ([][3]float64, error) {
 	out := make([][3]float64, 0, len(tris))
 	slots := geom.DefaultSlotCache
-	for i, t := range tris {
-		c, ok := slots.Get(i)
+	for _, t := range tris {
+		c, ok := slots.Get(geom.MakeSlotKey(pts[t[0]], pts[t[1]], pts[t[2]], t[0], t[1], t[2]))
 		if !ok {
 			var err error
 			c, err = delaunay.CircumcenterOf(pts, t)
