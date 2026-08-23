@@ -33,7 +33,9 @@ func Compute(pts []geom.Point, tris []delaunay.Triangle) (*Diagram, error) {
 	if err != nil {
 		return nil, err
 	}
-	dual, err := DualEdges(len(tris), neighborMap(tris))
+	reg := NewNeighborRegistry()
+	reg.Bind(tris)
+	dual, err := DualEdges(len(tris), reg.Neighbors())
 	if err != nil {
 		return nil, err
 	}
