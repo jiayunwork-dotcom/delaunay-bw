@@ -48,10 +48,15 @@ func Triangulate(pts []geom.Point, opts Options) (*Result, error) {
 	bounds := geom.BoundsOf(pts)
 	super := SuperTriangle(bounds)
 
+	buf := DefaultMeshBuffer
+	buf.Begin(n)
+
 	// Working mesh includes the super vertices as virtual indices n..n+2.
 	tris := InsertAll(pts, super, n, tol)
 	tris = StripSuper(tris, n)
 	tris = NormalizeOrientations(pts, tris, tol)
+	buf.Capture(tris)
+	tris = buf.Release()
 
 	if err := ValidateDelaunay(pts, tris, tol); err != nil {
 		return nil, err
