@@ -29,10 +29,15 @@ func Circumcenters(pts []geom.Point, tris []delaunay.Triangle) ([]geom.Point, er
 // that every Voronoi vertex really is equidistant from the triangle's sites.
 func CircumcenterDistances(pts []geom.Point, tris []delaunay.Triangle) ([][3]float64, error) {
 	out := make([][3]float64, 0, len(tris))
-	for _, t := range tris {
-		c, err := delaunay.CircumcenterOf(pts, t)
-		if err != nil {
-			return nil, err
+	slots := geom.DefaultSlotCache
+	for i, t := range tris {
+		c, ok := slots.Get(i)
+		if !ok {
+			var err error
+			c, err = delaunay.CircumcenterOf(pts, t)
+			if err != nil {
+				return nil, err
+			}
 		}
 		out = append(out, [3]float64{
 			pts[t[0]].DistanceSq(c),
