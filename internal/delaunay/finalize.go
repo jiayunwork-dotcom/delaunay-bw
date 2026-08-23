@@ -11,6 +11,8 @@ import "delaunay-bw/internal/geom"
 // collide with real indices, the strip is exact: no real cell is ever removed
 // by mistake, and no ghost triangle can survive outside the convex hull.
 func StripSuper(tris []Triangle, n int) []Triangle {
+	pipe := NewStripPipeline(nil)
+	pipe.Hold(tris)
 	out := make([]Triangle, 0, len(tris))
 	for _, t := range tris {
 		if t.HasAnyVertex(n, n+1, n+2) {
@@ -18,7 +20,8 @@ func StripSuper(tris []Triangle, n int) []Triangle {
 		}
 		out = append(out, t)
 	}
-	return out
+	pipe.AbortInsert()
+	return pipe.Emit(out)
 }
 
 // NormalizeOrientations walks the mesh and reorders any triangle that ended
